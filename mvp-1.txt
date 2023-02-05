@@ -1,25 +1,25 @@
 Poor Man's Budget - MVP 1 / Sprint 1 users stories
 
 
-0. (19) Firstly build models with tiangolo/sqlmodel for expense, budget, origin and category before building DataFrames
-1. Build two DataFrame files: expenses-current-month.[json|csv] and budget.[json|csv]
-3. The expenses-current-month DataFrame should contain the following columns:
-      - id, date, category, title, amount, origin
-   And the budget DataFrame should be a table where:
+0. (19) Firstly build models with tiangolo/sqlmodel for transaction, budget, origin and category before building DataFrames (ok)
+1. Build two DataFrame files: expenses-current-month.[json|csv] and budget.[json|csv] (ok)
+3. The transaction DataFrame should contain the following columns:
+      - id, type, date, category, title, amount, origin (ok)
+   And the budget DataFrame should be a table where: (ok)
       - modification_date will be the first column;
       - categories will be subsequential columns - one column for each category;
       - limit_per_category will be cell values for any given modification_date row and category column
       - a last column total_limit showing the sum of all limits_per_category for a specific modification_date
-3.1 origin should be a table mapping numeric keys to origin name values stored in expenses-origin.json
-3.2 category should be a table mapping numeric keys to category name values stored in expenses-category.json
-3.3 amount should be a float value and must be rounded to two decimal places.
-4. There should be a configuration file sharing all common values between necessary scripts.
-5. There should be separate python functions to create, retrieve, update or delete expenses.
-6. All these functions should be hosted at the app expenses
+3.1 origin should be a table mapping numeric keys to origin name values stored in expenses-origin.json (not that, but made)
+3.2 category should be a table mapping numeric keys to category name values stored in expenses-category.json (not that, but made)
+3.3 amount should be a float value and must be rounded to two decimal places. (ok)
+4. There should be a configuration file sharing all common values between necessary scripts. (partially)
+5. There should be separate python functions to create, retrieve, update or delete expenses. (ok for all models)
+6. All these functions should be hosted at the app expenses (ok for all models)
 7. main.py should receive parameters from command line and call their respective functions from expenses module
 8. I'll call my app as PMBudget, which stands for Poor Man's Budget.
 9. I should build it with pytest and vim or nvim. And I should build it now!
-10. When creating expenses I should inform their date (default: today), category (default: empty), title, amount and origin (it's origin name or it's origin key)
-11. When retrieving expenses and budgets, I must be capable of filtering expenses by category, minimal and maximal value as well I should be able to filter budget by a specific category.
-12. When updating expenses I should update them by their id or title.
-13. When deleting expenses I should remove them by their id or title.
+10. When creating expenses I should inform their date (default: today), category (default: empty), title, amount and origin (it's origin name or it's origin key) (ok)
+11. When retrieving expenses and budgets, I must be capable of filtering expenses by category, minimal and maximal value as well I should be able to filter budget by a specific category. (partial)
+12. When updating expenses I should update them by their id. (ok) 
+13. When deleting expenses I should remove them by their id. (ok)

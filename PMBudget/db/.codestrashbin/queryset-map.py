@@ -1,0 +1,20 @@
+    operator_map  = {
+        'contains': ' LIKE \'%{}%\';',
+        'icontains': ' LIKE \'%{}%\' COLLATE NOCASE;',
+        'endswith': ' LIKE \'%{}\';',
+        'iendswith': ' LIKE \'%{}\' COLLATE NOCASE;',
+        'exact': ' = \'%{}\';',
+        'iexact': ' = \'%{}\' COLLATE NOCASE;',
+        'in': ' IN {};',
+        'isnull': ' IS NULL;',
+        'isnotnull': ' IS NOT NULL;',
+        'gt': ' > {};',
+        'gte': ' >= {};',
+        'lt': ' < {};',
+        'lte': ' <= {};',
+        'litrange': ' BETWEEN \'{}\' AND \'{}\';',
+        'range': ' BETWEEN {} AND {};',
+        'startswith': ' LIKE \'{}%\';',
+        'istartswith': ' LIKE \'{}%\' COLLATE NOCASE;',
+    }
+
