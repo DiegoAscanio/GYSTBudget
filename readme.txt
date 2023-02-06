@@ -1,4 +1,4 @@
-Poor Man's Budget user stories:
+Get Your Shit Together! Budget user stories:
 
 
 1. Build two DataFrame files: expenses-current-month.[json|csv] and budget-current-month.[json|csv]
