@@ -2,6 +2,7 @@ import pytest
 
 from models.budget import *
 from db import create_db_and_tables
+from numpy import random
 
 # BEGIN BUDGET TESTS
 

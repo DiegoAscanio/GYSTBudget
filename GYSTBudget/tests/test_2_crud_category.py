@@ -23,10 +23,10 @@ def test_crud_retrieve_category() -> None:
     category = retrieve_category(1)
     assert category
 
-def test_crud_retrieve_categorys() -> None:
-    from crud.category import retrieve_categorys
-    categorys = retrieve_categorys()
-    assert categorys
+def test_crud_retrieve_categories() -> None:
+    from crud.category import retrieve_categories
+    categories = retrieve_categories()
+    assert categories
 
 def test_crud_update_category():
     from models.category import CategoryUpdate

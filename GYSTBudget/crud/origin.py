@@ -1,12 +1,19 @@
+from sqlite3 import IntegrityError
 from models.origin import *
 from sqlmodel import Session, select
 from db import get_session
+from typing import List
+import sqlalchemy.sql.elements
 
 def create_origin(origin: OriginCreate, session: Session = next(get_session())):
     db_origin = Origin.from_orm(origin)
-    session.add(db_origin)
-    session.commit()
-    session.refresh(db_origin)
+    try:
+        session.add(db_origin)
+        session.commit()
+        session.refresh(db_origin)
+    except:
+        session.rollback()
+        raise
     return db_origin
 
 def retrieve_origin(origin_id : int, session: Session = next(get_session())):
@@ -39,3 +46,7 @@ def delete_origin(origin_id: int, session: Session = next(get_session())):
     session.commit()
     return {'ok': True}
 
+def filter_origins(expression: sqlalchemy.sql.elements.BinaryExpression, session: Session=next(get_session())) -> List[Origin]:
+    statement = select(Origin).where(expression)
+    results = session.exec(statement)
+    return results.all()

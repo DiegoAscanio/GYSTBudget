@@ -8,6 +8,7 @@ from enum import IntEnum
 if TYPE_CHECKING:
     from models.category import Category
     from models.origin import Origin
+    from models.budget import Budget
 
 
 class TransactionTypeEnum(IntEnum):
@@ -15,22 +16,34 @@ class TransactionTypeEnum(IntEnum):
     income=2
 
 class TransactionBase(SQLModel):
-    type : TransactionTypeEnum
-    date : datetime=Field(default_factory=datetime.now, index=True)
     title: str
+    type : TransactionTypeEnum = TransactionTypeEnum(1)
+    date : datetime=Field(default_factory=datetime.now, index=True)
     amount: condecimal(max_digits=12, decimal_places=2) = Field(default=0)
 
 class Transaction(TransactionBase, table=True):
     id : Optional[int]=Field(default=None, primary_key=True)
     category: Optional['Category'] = Relationship(
         back_populates='transactions',
+        sa_relationship_kwargs={
+            'cascade': 'delete'
+        }
     )
     origin: Optional['Origin'] = Relationship(
         back_populates='transactions',
+        sa_relationship_kwargs={
+            'cascade': 'delete'
+        }
+    )
+    budget: Optional['Budget'] = Relationship(
+        back_populates='transactions',
+        sa_relationship_kwargs={
+            'cascade': 'delete'
+        }
     )
     category_id: Optional[int] = Field(default=None, foreign_key='category.id')
     origin_id: Optional[int] = Field(default=None, foreign_key='origin.id')
-
+    budget_id: Optional[int] = Field(default=None, foreign_key='budget.id')
 
 class TransactionCreate(TransactionBase):
     pass

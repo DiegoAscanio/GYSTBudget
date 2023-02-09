@@ -1,7 +1,8 @@
 from models.category import *
 from db import get_session
 from sqlmodel import Session, select
-import pdb
+from typing import List
+import sqlalchemy.sql.elements
 
 def create_category(category: CategoryCreate, session: Session = next(get_session())):
     db_category = Category.from_orm(category)
@@ -16,9 +17,9 @@ def retrieve_category(category_id : int, session: Session = next(get_session()))
         raise Exception('Category not found')
     return category
 
-def retrieve_categorys(session: Session = next(get_session()), offset: int = 0, limit: int = 100):
-    categorys = session.exec(select(Category).offset(offset).limit(limit)).all()
-    return categorys
+def retrieve_categories(session: Session = next(get_session()), offset: int = 0, limit: int = 100):
+    categories = session.exec(select(Category).offset(offset).limit(limit)).all()
+    return categories
 
 def update_category(category_id : int, category: CategoryUpdate, session: Session = next(get_session())):
     db_category = session.get(Category, category_id)
@@ -40,3 +41,7 @@ def delete_category(category_id: int, session: Session = next(get_session())):
     session.commit()
     return {'ok': True}
 
+def filter_categories(expression: sqlalchemy.sql.elements.BinaryExpression, session: Session=next(get_session())) -> List[Category]:
+    statement = select(Category).where(expression)
+    results = session.exec(statement)
+    return results.all()

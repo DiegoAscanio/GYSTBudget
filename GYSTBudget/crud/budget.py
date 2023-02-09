@@ -1,6 +1,8 @@
 from models.budget import *
 from sqlmodel import Session, select
 from db import get_session
+from typing import List
+import sqlalchemy.sql.elements
 
 def create_budget(budget: BudgetCreate, session: Session = next(get_session())):
     db_budget = Budget.from_orm(budget)
@@ -39,3 +41,7 @@ def delete_budget(budget_id: int, session: Session = next(get_session())):
     session.commit()
     return {'ok': True}
 
+def filter_budgets(expression: sqlalchemy.sql.elements.BinaryExpression, session: Session=next(get_session())) -> List[Budget]:
+    statement = select(Budget).where(expression)
+    results = session.exec(statement)
+    return results.all()

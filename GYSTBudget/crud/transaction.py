@@ -1,9 +1,14 @@
 from models.transaction import *
 from sqlmodel import Session, select
 from db import get_session
+from typing import List
+import sqlalchemy.sql.elements
+import pdb
 
-def create_transaction(transaction: TransactionCreate, session: Session = next(get_session())):
+def create_transaction(transaction: TransactionCreate, session: Session = next(get_session()), **orm_args):
     db_transaction = Transaction.from_orm(transaction)
+    for k, v in orm_args.items():
+        db_transaction.__dict__[k] = v
     session.add(db_transaction)
     session.commit()
     session.refresh(db_transaction)
@@ -39,3 +44,7 @@ def delete_transaction(transaction_id: int, session: Session = next(get_session(
     session.commit()
     return {'ok': True}
 
+def filter_transactions(expression: sqlalchemy.sql.elements.BinaryExpression, session: Session=next(get_session())) -> List[Transaction]:
+    statement = select(Transaction).where(expression)
+    results = session.exec(statement)
+    return results.all()

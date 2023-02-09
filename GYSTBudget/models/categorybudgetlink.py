@@ -11,8 +11,9 @@ class CategoryBudgetLinkBase(SQLModel):
     amount: condecimal(max_digits=12, decimal_places=2)  = Field(default = 0)
 
 class CategoryBudgetLink(CategoryBudgetLinkBase, table = True):
+
     category_id: Optional[int] = Field(
-        default = None, foreign_key='category.id', primary_key=True
+        default = None, foreign_key='category.id', primary_key=True, 
     )
     budget_id: Optional[int] = Field(
         default = None, foreign_key='budget.id', primary_key=True

@@ -1,5 +1,6 @@
 import pytest
 import pdb
+import os
 
 from models.category import Category
 from models.budget import Budget
@@ -7,16 +8,19 @@ from models.categorybudgetlink import CategoryBudgetLink
 from models.origin import Origin
 from models.transaction import Transaction
 
-
+exists = os.path.exists
+wdir = os.getcwd() 
 def test_1_df_files_exists() -> None:
-    import os
-    wdir = os.getcwd() + '/exports/'
-    exists = os.path.exists
-    filenames = [wdir + name for name in ['expenses-current-month.json', 'expenses-current-month.csv', 'budget.json', 'budget.csv']]
+    exports_dir = wdir + '/exports/'
+    filenames = [exports_dir + name for name in ['expenses-current-month.json', 'expenses-current-month.csv', 'budget.json', 'budget.csv']]
     for filename in filenames:
         assert exists(filename)
 
 def test_db() -> None:
+    # delete db if exists
+    dbf = wdir + '/db.sqlite3'
+    if exists(dbf):
+        os.remove(dbf)
     import db
     from sqlalchemy.engine import Inspector
     from sqlmodel import inspect
