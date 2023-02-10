@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, Session, create_engine
+from os.path import expanduser
 
-sqlite_file_name =  'db.sqlite3'
+sqlite_file_name = expanduser('~') + '/Dropbox/.gystbudget/db.sqlite3'
 sqlite_url = 'sqlite:///{}'.format(sqlite_file_name)
 
 engine = create_engine(sqlite_url, echo = True)

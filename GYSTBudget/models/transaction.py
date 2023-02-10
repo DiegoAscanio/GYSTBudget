@@ -25,21 +25,12 @@ class Transaction(TransactionBase, table=True):
     id : Optional[int]=Field(default=None, primary_key=True)
     category: Optional['Category'] = Relationship(
         back_populates='transactions',
-        sa_relationship_kwargs={
-            'cascade': 'delete'
-        }
     )
     origin: Optional['Origin'] = Relationship(
         back_populates='transactions',
-        sa_relationship_kwargs={
-            'cascade': 'delete'
-        }
     )
     budget: Optional['Budget'] = Relationship(
         back_populates='transactions',
-        sa_relationship_kwargs={
-            'cascade': 'delete'
-        }
     )
     category_id: Optional[int] = Field(default=None, foreign_key='category.id')
     origin_id: Optional[int] = Field(default=None, foreign_key='origin.id')
