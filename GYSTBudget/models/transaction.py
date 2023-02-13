@@ -23,15 +23,9 @@ class TransactionBase(SQLModel):
 
 class Transaction(TransactionBase, table=True):
     id : Optional[int]=Field(default=None, primary_key=True)
-    category: Optional['Category'] = Relationship(
-        back_populates='transactions',
-    )
-    origin: Optional['Origin'] = Relationship(
-        back_populates='transactions',
-    )
-    budget: Optional['Budget'] = Relationship(
-        back_populates='transactions',
-    )
+    category: Optional['Category'] = Relationship()
+    origin: Optional['Origin'] = Relationship()
+    budget: Optional['Budget'] = Relationship()
     category_id: Optional[int] = Field(default=None, foreign_key='category.id')
     origin_id: Optional[int] = Field(default=None, foreign_key='origin.id')
     budget_id: Optional[int] = Field(default=None, foreign_key='budget.id')
