@@ -40,7 +40,7 @@ def category(name: str):
         print(repr(e))
         sysexit(1)
 
-@app.command()
+#@app.command()
 def budget(title: str):
     result = filter_budgets(Budget.title == title, session = db_session)
     if len(result) == 0:
